@@ -1,0 +1,29 @@
+<div class="container">
+  
+    <form [formGroup]="myForm1" (submit)="onSubmit()">
+      <label>
+        url:
+        <input type="text" formControlName="url" />
+        <div
+          *ngIf="
+          myForm1.controls.url?.invalid 
+          "
+        >
+        url is required.
+        </div>
+      </label>
+  
+      <label>
+        cron:
+        <input type="text" formControlName="cron" />
+        <div
+          *ngIf="myForm1.controls.cron?.invalid"
+        >
+          Valid cron is required.
+        </div>
+      </label>
+  
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+  <div class="container">
