@@ -25,7 +25,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 
-export class ScrapeComponent implements OnInit  {
+export class ScrapeComponent implements OnInit {
   //public fs = require('fs');
   myForm1: FormGroup;
   error: string | undefined;
@@ -33,7 +33,7 @@ export class ScrapeComponent implements OnInit  {
   //cronJob: CronJob;
   public async methodToRun() {
     console.log("King Chronos");
-}
+  }
   constructor(private fb: FormBuilder, private http: HttpClient) {
 
     //this.example = new CronJobExample();
@@ -41,8 +41,8 @@ export class ScrapeComponent implements OnInit  {
       'url': ['', Validators.required],
       'cron': ['', [Validators.required]]
     });
-    
-    
+
+
 
   }
 
@@ -50,64 +50,58 @@ export class ScrapeComponent implements OnInit  {
     console.log("yes");
 
 
-//     this.myForm1 = this.fb.group({
-//     // your controls here
-//   });
-//'taskCron-Key': '4GwWAUeyux8yqNk3F4DrO5vDUfwIwticataxGPJl', // replace with your actual token
+    //     this.myForm1 = this.fb.group({
+    //     // your controls here
+    //   });
+    //'taskCron-Key': '4GwWAUeyux8yqNk3F4DrO5vDUfwIwticataxGPJl', // replace with your actual token
     //           'Access-Control-Allow-Credentials': 'true'
 
-/*     'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*',  // enable CORS
-    'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
-    'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token', */
-}
+    /*     'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',  // enable CORS
+        'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token', */
+  }
 
 
-downloadFile() {
-  const data=  "import os"+"\n"+
-  "from crontab import CronTab"+"\n"+
-  "import requests"+"\n"+
-  "\n"+
-  "def job(url):"+"\n"+
-  "    try:"+"\n"+
-  "        response = requests.get(url)"+"\n"+
-  "        print('Ping Successful!')"+"\n"+
-  "        print('Headers:')"+"\n"+
-  "        print(response.headers)"+"\n"+
-  "        print('First 1000 characters of the response:')"+"\n"+
-  "        print(response.text[:1000])"+"\n"+
-  "    except Exception as e:"+"\n"+
-  "        print(f'An error occurred: {e}')"+"\n"+
-  "\n"+
-  "def schedule_job(cron_expression, url):"+"\n"+
-  "    with CronTab(user='username') as cron:"+"\n"+
-  "        job = cron.new(command='python /path/to/your/script.py')"+"\n"+
-  "        job.setall(cron_expression)"+"\n"+
-  "\n"+
-  "# Replace 'cron_expression' and 'url' with your values"+"\n"
-  "schedule_job('cron_expression', 'url')"+"\n";
+  downloadFile() {
+    const data = "import os" + "\n" +
+      "from crontab import CronTab" + "\n" +
+      "import requests" + "\n" +
+      "\n" +
+      "def job(url):" + "\n" +
+      "    try:" + "\n" +
+      "        response = requests.get(url)" + "\n" +
+      "        print('Ping Successful!')" + "\n" +
+      "        print('Headers:')" + "\n" +
+      "        print(response.headers)" + "\n" +
+      "        print('First 1000 characters of the response:')" + "\n" +
+      "        print(response.text[:1000])" + "\n" +
+      "    except Exception as e:" + "\n" +
+      "        print(f'An error occurred: {e}')" + "\n" +
+      "\n" +
+      "def schedule_job(cron_expression, url):" + "\n" +
+      "    with CronTab(user='username') as cron:" + "\n" +
+      "        job = cron.new(command='python /path/to/your/script.py')" + "\n" +
+      "        job.setall(cron_expression)" + "\n" +
+      "\n" +
+      "# Replace 'cron_expression' and 'url' with your values" + "\n"
+    "schedule_job('cron_expression', 'url')" + "\n";
 
-  const blob = new Blob([data], { type: 'text/plain' });
-  const url= window.URL.createObjectURL(blob);
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = 'script.py';
-  link.click();
-}
+    const blob = new Blob([data], { type: 'text/plain' });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'script.py';
+    link.click();
+  }
 
 
   onSubmit() {
     //const job = cronParser.parseExpression(this.cronExpression);
 
     console.log("mp");
-    
+
     if (this.myForm1.valid) {
-
-      this.downloadFile()
-
-
-
-  
 
 
 
@@ -136,13 +130,29 @@ downloadFile() {
       const headers = new HttpHeaders({
       });
       let queryParams = new HttpParams();
-      queryParams = queryParams.append("url",this.myForm1.controls['url'].value );
-      queryParams = queryParams.append("cron",this.myForm1.controls['cron'].value );
-      this.http.get('https://hg7xygvm17.execute-api.us-east-2.amazonaws.com/five/crontaskrock',
-      { headers,params:queryParams }).subscribe(
-           (response) =>{ console.log(response) ; console.log("correcto");},
-           (error) => { this.error = error.message; console.log("incorrecto"); }
-      );
+      queryParams = queryParams.append("url", this.myForm1.controls['url'].value);
+      queryParams = queryParams.append("cron", this.myForm1.controls['cron'].value);
+      this.http.get('https://hg7xygvm17.execute-api.us-east-2.amazonaws.com/five/crontaskrock', 
+        /*       { headers,params:queryParams }).subscribe(
+                   (response) =>{ console.log(response) ; console.log(response);},
+                   (error) => { this.error = error.message; console.log(this.error ); }
+              ); */
+        { headers, params: queryParams },).subscribe({
+
+
+          complete() {
+            console.log("is completed");
+            
+          },
+
+
+          error: (e) => {
+            console.log("is error");
+            console.error(e);
+          },
+        });
+
+      this.downloadFile()
 
     } else {
       console.log('Form is not valid');
